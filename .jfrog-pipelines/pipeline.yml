@@ -8,7 +8,25 @@ resources:
       path: {{ .Values.var.path }}
       branches:
         include: {{ .Values.var.branches }}
-  - name: java_mvn_docker_build_info
+  - name: mvn_install_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: {{ .Values.var.artifactory }}
+      buildName: {{ .Values.var.pipelineName }}
+      buildNumber: ${run_number}
+  - name: mvn_test_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: {{ .Values.var.artifactory }}
+      buildName: {{ .Values.var.pipelineName }}
+      buildNumber: ${run_number}
+  - name: docker_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: {{ .Values.var.artifactory }}
+      buildName: {{ .Values.var.pipelineName }}
+      buildNumber: ${run_number}
+  - name: docker_publish_info
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
@@ -38,7 +56,7 @@ pipelines:
         #configFileLocation:   <string>      # optional
         #configFileName:       <string>      # optional
         outputResources:
-          - name: java_mvn_docker_build_info
+          - name: mvn_install_info
       execution:
         onStart:
           - echo "Preparing for work..."
@@ -58,7 +76,7 @@ pipelines:
       ##task -- slack integration
         inputResources:
           - name: src_repo
-          - name: java_mvn_docker_build_info
+          - name: mvn_install_info
         mvnCommand: mvn test      # optional
         #sourceLocation:       <string>      # optional
         #resolverSnapshotRepo: <string>      # optional
@@ -71,7 +89,7 @@ pipelines:
         #configFileLocation:   <string>      # optional
         #configFileName:       <string>      # optional
         outputResources:
-          - name: java_mvn_docker_build_info
+          - name: mvn_test_info
       execution:
         onStart:
           - echo "Preparing for work..."
@@ -87,7 +105,7 @@ pipelines:
       configuration:
         inputResources:
           - name: src_repo
-          - name: java_mvn_docker_build_info
+          - name: mvn_test_info
         affinityGroup: java_mvn_docker
         integrations:
           - name: {{ .Values.var.artifactory }} 
@@ -96,7 +114,7 @@ pipelines:
         dockerImageName: {{ .Values.var.imageName }}   # replace with your image path and name
         dockerImageTag: ${run_number}
         outputResources:
-          - name: java_mvn_docker_build_info
+          - name: docker_build_info
       execution:
         onStart:
           - echo "Preparing for work..."
@@ -112,7 +130,7 @@ pipelines:
       configuration:
         inputResources:
           - name: src_repo
-          - name: java_mvn_docker_build_info
+          - name: docker_build_info
         integrations:
           - name: {{ .Values.var.artifactory }} 
         affinityGroup: java_mvn_docker
@@ -121,7 +139,7 @@ pipelines:
         failOnScan: true       # default true
         autoPublishBuildInfo: true       # default false
         outputResources:
-          - name: java_mvn_docker_build_info
+          - name: docker_publish_info
       execution:
         onStart:
           - echo "Preparing for work..."
