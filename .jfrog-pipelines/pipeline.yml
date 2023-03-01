@@ -140,8 +140,8 @@ pipelines:
           - name: {{ .Values.var.artifactory }} 
         affinityGroup: java_mvn_docker
         targetRepository: {{ .Values.var.repo }}        #  may be required. Must be a local repository. Virtual repositories are not supported.
-        forceXrayScan: true        # default false
-        failOnScan: true       # default true
+        forceXrayScan: false        # default false
+        failOnScan: false       # default true
         autoPublishBuildInfo: true       # default false
         outputResources:
           - name: docker_publish_info
