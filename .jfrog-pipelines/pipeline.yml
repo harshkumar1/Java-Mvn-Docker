@@ -115,7 +115,7 @@ pipelines:
           - name: {{ .Values.var.artifactory }} 
         dockerFileLocation: .
         dockerFileName: Dockerfile
-        dockerImageName: {{ .Values.var.imageName }}   # replace with your image path and name
+        dockerImageName: {{ .Values.var.jpdInstance }}/{{ .Values.var.repo }}/{{ .Values.var.imageName }}   # replace with your image path and name
         dockerImageTag: ${run_number}
         outputResources:
           - name: docker_build_info
@@ -128,6 +128,7 @@ pipelines:
           - echo "uh oh, something went wrong"
         onComplete: #always
           - echo "Cleaning up some stuff"
+          - docker images
           
     - name: docker_publish
       type: DockerPush
@@ -147,6 +148,7 @@ pipelines:
       execution:
         onStart:
           - echo "Preparing for work..."
+          - docker images
         onSuccess:
           - echo "Job well done!"
         onFailure:
