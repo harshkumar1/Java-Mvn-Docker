@@ -32,11 +32,6 @@ resources:
       sourceArtifactory: {{ .Values.var.artifactory }}
       buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
-  - name: runpoppropin
-    type: PropertyBag
-    configuration:
-      key1: value1
-      key2: value2
 
 pipelines:
   - name: {{ .Values.var.pipelineName }}
@@ -151,7 +146,6 @@ pipelines:
         autoPublishBuildInfo: true                      # default false
         outputResources:
           - name: docker_publish_info
-          - name: runpoppropin
       execution:
         onStart:
           - echo "Preparing for work..."
@@ -163,4 +157,3 @@ pipelines:
           - echo "uh oh, something went wrong"
         onComplete: #always
           - echo "Cleaning up some stuff"
-          - write_output runpoppropin runNumber=${run_number}
