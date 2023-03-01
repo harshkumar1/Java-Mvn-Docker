@@ -42,6 +42,8 @@ pipelines:
       type: MvnBuild
       configuration:
         affinityGroup: java_mvn_docker
+        integrations:
+          - name: {{ .Values.var.artifactory }} 
         inputResources:
           - name: src_repo
         mvnCommand: mvn clean install      # optional
@@ -71,6 +73,8 @@ pipelines:
       type: MvnBuild
       configuration: ##save test
         affinityGroup: java_mvn_docker
+        integrations:
+          - name: {{ .Values.var.artifactory }} 
       ##set run name
       ##set run description
       ##task -- slack integration
