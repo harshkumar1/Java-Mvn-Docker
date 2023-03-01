@@ -1,5 +1,5 @@
 var:
-  pipelineName: java_mvn_docker
+  pipelineName: demo_java_mvn_docker
   gitProvider: Github
   path: harshkumar1/Java-Mvn-Docker
   branches: main
