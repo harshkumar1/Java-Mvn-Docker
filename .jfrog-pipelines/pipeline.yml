@@ -52,8 +52,8 @@ pipelines:
         #resolverReleaseRepo:  <string>      # optional
         #deployerSnapshotRepo: <string>      # optional
         #deployerReleaseRepo:  <string>      # optional
-        forceXrayScan: true      # optional
-        failOnScan: false     # default true
+        #forceXrayScan: true      # optional
+        #failOnScan: false     # default true
         #autoPublishBuildInfo: <string>      # optional
         #configFileLocation:   <string>      # optional
         #configFileName:       <string>      # optional
