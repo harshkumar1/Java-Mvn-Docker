@@ -46,7 +46,7 @@ pipelines:
           - name: {{ .Values.var.artifactory }} 
         inputResources:
           - name: src_repo
-        mvnCommand: mvn clean install      # optional
+        mvnCommand: clean install      # optional
         #sourceLocation:       <string>      # optional
         #resolverSnapshotRepo: <string>      # optional
         #resolverReleaseRepo:  <string>      # optional
@@ -81,7 +81,7 @@ pipelines:
         inputResources:
           - name: src_repo
           - name: mvn_install_info
-        mvnCommand: mvn test      # optional
+        mvnCommand: test      # optional
         #sourceLocation:       <string>      # optional
         #resolverSnapshotRepo: <string>      # optional
         #resolverReleaseRepo:  <string>      # optional
