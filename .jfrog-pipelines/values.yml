@@ -3,7 +3,7 @@ var:
   gitProvider: hk_github
   path: harshkumar1/Java-Mvn-Docker
   branches: main
-  artifactory: Artifactory
+  artifactory: hk_artifactory
   repo: quickstarts-docker-local
   jfrogTokenIntegration: myAccessTokenIntegration
   jpdInstance: pipelines.jfrog.io
