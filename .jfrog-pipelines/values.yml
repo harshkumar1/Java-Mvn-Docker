@@ -4,7 +4,7 @@ var:
   path: harshkumar1/Java-Mvn-Docker
   branches: main
   artifactory: Artifactory
-  repo: docker-local
-  jfrogTokenIntegration: harshk_jpd_access_token
-  jpdInstance: jpd573720124.jfrogdev.org
+  repo: quickstarts-docker-local
+  jfrogTokenIntegration: myAccessTokenIntegration
+  jpdInstance: pipelines.jfrog.io
   imageName: demo_microservice_1
