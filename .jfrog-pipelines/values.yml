@@ -1,6 +1,6 @@
 var:
   pipelineName: demo_microservice_1
-  gitProvider: Github
+  gitProvider: hk_github
   path: harshkumar1/Java-Mvn-Docker
   branches: main
   artifactory: Artifactory
