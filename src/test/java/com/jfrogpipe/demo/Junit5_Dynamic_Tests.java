@@ -24,7 +24,7 @@ public class Junit5_Dynamic_Tests {
           @Override
           public boolean hasNext() {
               current = current+1;
-              return current % 1000 != 0;
+              return current % 10 != 0;
           }
 
           @Override
@@ -37,8 +37,8 @@ public class Junit5_Dynamic_Tests {
       Function<Integer, String> displayNameGenerator = (input) -> "input:" + input;
 
       // Executes tests based on the current input value.
-      ThrowingConsumer<Integer> testExecutor = (input) -> Assertions.assertFalse(true);
-
+      ThrowingConsumer<Integer> testExecutor = (input) -> Assertions.assertEquals(1,2);
+      
       // Returns a stream of dynamic tests.
       return DynamicTest.stream(inputGenerator, displayNameGenerator, testExecutor);
   }

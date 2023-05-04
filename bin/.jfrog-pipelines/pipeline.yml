@@ -1,0 +1,159 @@
+valuesFilePath: ./values.yml
+
+resources:
+  - name: src_repo
+    type: GitRepo
+    configuration:
+      gitProvider: {{ .Values.var.gitProvider }}
+      path: {{ .Values.var.path }}
+      branches:
+        include: {{ .Values.var.branches }}
+  - name: mvn_install_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: {{ .Values.var.artifactory }}
+      buildName: {{ .Values.var.pipelineName }}
+      buildNumber: ${run_number}
+  - name: mvn_test_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: {{ .Values.var.artifactory }}
+      buildName: {{ .Values.var.pipelineName }}
+      buildNumber: ${run_number}
+  - name: docker_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: {{ .Values.var.artifactory }}
+      buildName: {{ .Values.var.pipelineName }}
+      buildNumber: ${run_number}
+  - name: docker_publish_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: {{ .Values.var.artifactory }}
+      buildName: {{ .Values.var.pipelineName }}
+      buildNumber: ${run_number}
+
+pipelines:
+  - name: {{ .Values.var.pipelineName }}
+    configuration:
+      jfrogCliVersion: '2'                 # optional
+    steps:
+    - name: mvn_build
+      type: MvnBuild
+      configuration:
+        affinityGroup: java_mvn_docker
+        integrations:
+          - name: {{ .Values.var.artifactory }} 
+        inputResources:
+          - name: src_repo
+        mvnCommand: clean install -DskipTests           # optional
+        #sourceLocation:       <string>      # optional
+        #resolverSnapshotRepo: <string>      # optional
+        #resolverReleaseRepo:  <string>      # optional
+        #deployerSnapshotRepo: <string>      # optional
+        #deployerReleaseRepo:  <string>      # optional
+        #forceXrayScan:        <boolean>     # optional
+        #failOnScan:           <boolean>     # default true
+        #autoPublishBuildInfo: <string>      # optional
+        #configFileLocation:   <string>      # optional
+        #configFileName:       <string>      # optional
+        outputResources:
+          - name: mvn_install_info
+      execution:
+        onStart:
+          - echo "Preparing for work..."
+        onSuccess:
+          - echo "Job well done!"
+        onFailure:
+          - echo "uh oh, something went wrong"
+        onComplete: #always
+          - echo "Cleaning up some stuff"
+
+    - name: mvn_test
+      type: MvnBuild
+      configuration: ##save test
+        affinityGroup: java_mvn_docker
+        integrations:
+          - name: {{ .Values.var.artifactory }} 
+      ##set run name
+      ##set run description
+      ##task -- slack integration
+        inputResources:
+          - name: src_repo
+          - name: mvn_install_info
+        mvnCommand: test                     # optional
+        #sourceLocation:       <string>      # optional
+        #resolverSnapshotRepo: <string>      # optional
+        #resolverReleaseRepo:  <string>      # optional
+        #deployerSnapshotRepo: <string>      # optional
+        #deployerReleaseRepo:  <string>      # optional
+        #forceXrayScan:        <string>      # optional
+        #failOnScan:           <boolean>     # default true
+        #autoPublishBuildInfo: <string>      # optional
+        #configFileLocation:   <string>      # optional
+        #configFileName:       <string>      # optional
+        outputResources:
+          - name: mvn_test_info
+      execution:
+        onStart:
+          - echo "Preparing for work..."
+        onSuccess:
+          - echo "Job well done!"
+        onFailure:
+          - echo "uh oh, something went wrong"
+        onComplete: #always
+          - echo "Cleaning up some stuff"
+          - save_tests $res_src_repo_resourcePath/target/surefire-reports/
+
+    - name: docker_build
+      type: DockerBuild
+      configuration:
+        inputResources:
+          - name: src_repo
+          - name: mvn_test_info
+        affinityGroup: java_mvn_docker
+        integrations:
+          - name: {{ .Values.var.artifactory }} 
+        dockerFileLocation: .
+        dockerFileName: Dockerfile
+        dockerImageName: {{ .Values.var.jpdInstance }}/{{ .Values.var.repo }}/{{ .Values.var.imageName }}   # replace with your image path and name
+        dockerImageTag: ${run_number}
+        outputResources:
+          - name: docker_build_info
+      execution:
+        onStart:
+          - echo "Preparing for work..."
+        onSuccess:
+          - echo "Job well done!"
+        onFailure:
+          - echo "uh oh, something went wrong"
+        onComplete: #always
+          - echo "Cleaning up some stuff"
+          - docker images
+          
+    - name: docker_publish
+      type: DockerPush
+      configuration:
+        inputResources:
+          - name: src_repo
+          - name: docker_build_info
+        integrations:
+          - name: {{ .Values.var.artifactory }} 
+        affinityGroup: java_mvn_docker
+        targetRepository: {{ .Values.var.repo }}        #  may be required. Must be a local repository. Virtual repositories are not supported.
+        forceXrayScan: false                            # default false
+        failOnScan: false                               # default true
+        autoPublishBuildInfo: true                      # default false
+        outputResources:
+          - name: docker_publish_info
+      execution:
+        onStart:
+          - echo "Preparing for work..."
+          - docker images
+          - set_run_name "V${run_number}.0.0"
+        onSuccess:
+          - echo "Job well done!"
+        onFailure:
+          - echo "uh oh, something went wrong"
+        onComplete: #always
+          - echo "Cleaning up some stuff"
