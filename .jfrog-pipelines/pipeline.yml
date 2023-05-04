@@ -103,6 +103,7 @@ pipelines:
           - echo "uh oh, something went wrong"
         onComplete: #always
           - echo "Cleaning up some stuff"
+          - ls -lh $res_src_repo_resourcePath/target/surefire-reports/
           - save_tests $res_src_repo_resourcePath/target/surefire-reports/
 
     - name: docker_build
