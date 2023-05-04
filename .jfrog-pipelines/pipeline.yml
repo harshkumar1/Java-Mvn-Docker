@@ -46,7 +46,7 @@ pipelines:
           - name: {{ .Values.var.artifactory }} 
         inputResources:
           - name: src_repo
-        mvnCommand: clean install            # optional
+        mvnCommand: clean install -DskipTests           # optional
         #sourceLocation:       <string>      # optional
         #resolverSnapshotRepo: <string>      # optional
         #resolverReleaseRepo:  <string>      # optional
