@@ -26,13 +26,8 @@ public class DemoTest
             String testName = "test" + i;
             String expected = "expected" + i;
             String actual = "actual" + i;
-            try {
-                Assertions.assertEquals(expected, actual);
-                //Thread.currentThread().getStackTrace();
-            } catch (AssertionError e) {
-                System.out.println("Test failed: " + testName);
-                e.printStackTrace();
-            }
+            Assertions.assertEquals(expected, actual);
+            //Thread.currentThread().getStackTrace();
         }
     }
 
