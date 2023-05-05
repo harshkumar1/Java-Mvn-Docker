@@ -1,5 +1,5 @@
 var:
-  pipelineName: equans_testing2
+  pipelineName: equans_testing3
   gitProvider: hk_github
   path: harshkumar1/Java-Mvn-Docker
   branches: equans_testing
