@@ -6,5 +6,5 @@ var:
   artifactory: hk_artifactory_1
   repo: demo-docker-local
   jfrogTokenIntegration: myAccessTokenIntegration
-  jpdInstance: khazi1953.jfrogdev.org
+  jpdInstance: srkaz.jfrogdev.org
   imageName: demo_microservice_1
