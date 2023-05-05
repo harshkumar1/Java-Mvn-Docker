@@ -2,7 +2,7 @@ var:
   pipelineName: equans_testing
   gitProvider: hk_github
   path: harshkumar1/Java-Mvn-Docker
-  branches: main
+  branches: equans_testing
   artifactory: hk_artifactory_1
   repo: demo-docker-local
   jfrogTokenIntegration: myAccessTokenIntegration
