@@ -45,7 +45,7 @@ pipelines:
         integrations:
           - name: {{ .Values.var.artifactory }} 
         inputResources:
-          - name: src_repo
+          - name: src_repo_1
         mvnCommand: clean install -DskipTests           # optional
         #sourceLocation:       <string>      # optional
         #resolverSnapshotRepo: <string>      # optional
@@ -58,7 +58,7 @@ pipelines:
         #configFileLocation:   <string>      # optional
         #configFileName:       <string>      # optional
         outputResources:
-          - name: mvn_install_info
+          - name: mvn_install_info_1
       execution:
         onStart:
           - echo "Preparing for work..."
@@ -79,8 +79,8 @@ pipelines:
       ##set run description
       ##task -- slack integration
         inputResources:
-          - name: src_repo
-          - name: mvn_install_info
+          - name: src_repo_1
+          - name: mvn_install_info_1
         mvnCommand: test                     # optional
         #sourceLocation:       <string>      # optional
         #resolverSnapshotRepo: <string>      # optional
@@ -93,7 +93,7 @@ pipelines:
         #configFileLocation:   <string>      # optional
         #configFileName:       <string>      # optional
         outputResources:
-          - name: mvn_test_info
+          - name: mvn_test_info_1
       execution:
         onStart:
           - echo "Preparing for work..."
@@ -103,15 +103,15 @@ pipelines:
           - echo "uh oh, something went wrong"
         onComplete: #always
           - echo "Cleaning up some stuff"
-          - ls -lh $res_src_repo_resourcePath/target/surefire-reports/
-          - save_tests $res_src_repo_resourcePath/target/surefire-reports/
+          - ls -lh $res_src_repo_1_resourcePath/target/surefire-reports/
+          - save_tests $res_src_repo_1_resourcePath/target/surefire-reports/
 
     - name: docker_build
       type: DockerBuild
       configuration:
         inputResources:
-          - name: src_repo
-          - name: mvn_test_info
+          - name: src_repo_1
+          - name: mvn_test_info_1
         affinityGroup: java_mvn_docker
         integrations:
           - name: {{ .Values.var.artifactory }} 
@@ -120,7 +120,7 @@ pipelines:
         dockerImageName: {{ .Values.var.jpdInstance }}/{{ .Values.var.repo }}/{{ .Values.var.imageName }}   # replace with your image path and name
         dockerImageTag: ${run_number}
         outputResources:
-          - name: docker_build_info
+          - name: docker_build_info_1
       execution:
         onStart:
           - echo "Preparing for work..."
@@ -136,8 +136,8 @@ pipelines:
       type: DockerPush
       configuration:
         inputResources:
-          - name: src_repo
-          - name: docker_build_info
+          - name: src_repo_1
+          - name: docker_build_info_1
         integrations:
           - name: {{ .Values.var.artifactory }} 
         affinityGroup: java_mvn_docker
@@ -146,7 +146,7 @@ pipelines:
         failOnScan: false                               # default true
         autoPublishBuildInfo: true                      # default false
         outputResources:
-          - name: docker_publish_info
+          - name: docker_publish_info_1
       execution:
         onStart:
           - echo "Preparing for work..."
