@@ -81,7 +81,7 @@ pipelines:
 
     - name: mvn_test
       type: MvnBuild
-      configuration: ##save test
+      configuration: save test
         affinityGroup: java_mvn_docker
         integrations:
           - name: {{ .Values.var.artifactory }} 
