@@ -60,7 +60,7 @@
           <version>2.22.1</version>
           <configuration>
               <trimStackTrace>false</trimStackTrace>
-              <surefire.useFile>true</surefire.useFile>
+              <useFile>false</useFile>
               <testFailureIgnore>true</testFailureIgnore>
           </configuration>
         </plugin>
