@@ -1,32 +1,32 @@
 valuesFilePath: ./values.yml
 
 resources:
-  - name: src_repo
+  - name: src_repo_1
     type: GitRepo
     configuration:
       gitProvider: {{ .Values.var.gitProvider }}
       path: {{ .Values.var.path }}
       branches:
         include: {{ .Values.var.branches }}
-  - name: mvn_install_info
+  - name: mvn_install_info_1
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
       buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
-  - name: mvn_test_info
+  - name: mvn_test_info_1
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
       buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
-  - name: docker_build_info
+  - name: docker_build_info_1
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
       buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
-  - name: docker_publish_info
+  - name: docker_publish_info_1
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
