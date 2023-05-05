@@ -38,16 +38,6 @@ pipelines:
     configuration:
       jfrogCliVersion: '2'                 # optional
     steps:
-    - name: test_api
-      type: Bash
-      configuration:
-        runtime:
-          type: host
-        inputResources:
-          - name: src_repo
-      execution:
-        onExecute:
-          - cat /var/opt/jfrog/pipelines/reqKick/node_modules/@jfrog-pipelines/core/execTemplates/steps/jfrog/v1.0/Bash/header.sh
     - name: mvn_build
       type: MvnBuild
       configuration:
@@ -71,7 +61,7 @@ pipelines:
           - name: mvn_install_info
       execution:
         onStart:
-          - echo "Preparing for work..."        
+          - echo "Preparing for work..."
         onSuccess:
           - echo "Job well done!"
         onFailure:
@@ -81,7 +71,7 @@ pipelines:
 
     - name: mvn_test
       type: MvnBuild
-      configuration: save test
+      configuration: ##save test
         affinityGroup: java_mvn_docker
         integrations:
           - name: {{ .Values.var.artifactory }} 
