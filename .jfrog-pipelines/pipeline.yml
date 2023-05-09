@@ -80,7 +80,7 @@ pipelines:
       ##task -- slack integration
         inputResources:
           - name: src_repo_1
-          - name: mvn_install_info_1
+          #- name: mvn_install_info_1
         mvnCommand: test                     # optional
         #sourceLocation:       <string>      # optional
         #resolverSnapshotRepo: <string>      # optional
