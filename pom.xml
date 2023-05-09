@@ -64,8 +64,16 @@
               <testFailureIgnore>true</testFailureIgnore>
               <systemProperties>
                 <property>
-                  <name>tests</name>
-                  <value>${tests}</value>
+                  <name>dynamic_tests_count</name>
+                  <value>${dynamic_tests_count}</value>
+                </property>
+                <property>
+                  <name>dynamic_1_tests_count</name>
+                  <value>${dynamic_1_tests_count}</value>
+                </property>
+                <property>
+                  <name>dynamic_2_tests_count</name>
+                  <value>${dynamic_2_tests_count}</value>
                 </property>
               </systemProperties>
           </configuration>

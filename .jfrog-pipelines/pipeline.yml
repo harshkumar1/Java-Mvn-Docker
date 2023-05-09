@@ -39,15 +39,15 @@ pipelines:
       jfrogCliVersion: '2'                 # optional
       environmentVariables:
         readOnly:
-          Dynamic_Tests: 
+          dynamic_tests_count: 
             default: 10
             description: Tests to be run in test suite - Dynamic_Tests 
             allowCustom: true
-          Dynamic_1_Tests: 
+          dynamic_1_tests_count: 
             default: 10
             description: Tests to be run in test suite - Dynamic_1_Tests
             allowCustom: true
-          Dynamic_2_Tests: 
+          dynamic_2_tests_count: 
             default: 10
             description: Tests to be run in test suite - Dynamic_2_Tests
             allowCustom: true
@@ -60,7 +60,7 @@ pipelines:
           - name: {{ .Values.var.artifactory }} 
         inputResources:
           - name: src_repo_1
-        mvnCommand: clean install -DskipTests           # optional
+        mvnCommand: clean install -DskipTests     # optional
         #sourceLocation:       <string>      # optional
         #resolverSnapshotRepo: <string>      # optional
         #resolverReleaseRepo:  <string>      # optional
@@ -95,7 +95,7 @@ pipelines:
         inputResources:
           - name: src_repo_1
           - name: mvn_install_info_1
-        mvnCommand: test                     # optional
+        mvnCommand: test  -Ddynamic_tests_count=$dynamic_tests_count -Ddynamic_1_tests_count=$dynamic_1_tests_count -Ddynamic_2_tests=$dynamic_2_tests_count                  # optional
         #sourceLocation:       <string>      # optional
         #resolverSnapshotRepo: <string>      # optional
         #resolverReleaseRepo:  <string>      # optional

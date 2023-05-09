@@ -17,10 +17,12 @@ public class Junit5_Dynamic_2_Tests {
       // a number evenly divisible by 7 is encountered.
       Iterator<Integer> inputGenerator = new Iterator<Integer>() {
           int current = 0;
+          int testCases = Integer.parseInt(System.getProperty("dynamic_2_tests_count"));
+
           @Override
           public boolean hasNext() {
               current = current+1;
-              return current % 1 != 0;
+              return current % testCases != 0;
           }
 
           @Override
