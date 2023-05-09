@@ -39,17 +39,17 @@ pipelines:
       jfrogCliVersion: '2'                 # optional
       environmentVariables:
         readOnly:
-          dynamic_tests_count: 
+          dynamic_count: 
             default: 10
-            description: Tests to be run in test suite - Dynamic_Tests 
+            description: Tests are randomly generated propotional to this count for test suite - Dynamic_Tests 
             allowCustom: true
-          dynamic_1_tests_count: 
+          dynamic_1_count: 
             default: 10
-            description: Tests to be run in test suite - Dynamic_1_Tests
+            description: Tests are randomly generated propotional to this count for test suite - Dynamic_1_Tests
             allowCustom: true
-          dynamic_2_tests_count: 
+          dynamic_2_count: 
             default: 10
-            description: Tests to be run in test suite - Dynamic_2_Tests
+            description: Tests are randomly generated propotional to this count for test suite - Dynamic_2_Tests
             allowCustom: true
     steps:
     - name: mvn_build
@@ -95,7 +95,7 @@ pipelines:
         inputResources:
           - name: src_repo_1
           - name: mvn_install_info_1
-        mvnCommand: test  -Ddynamic_tests_count=$dynamic_tests_count -Ddynamic_1_tests_count=$dynamic_1_tests_count -Ddynamic_2_tests=$dynamic_2_tests_count                  # optional
+        mvnCommand: test  -Ddynamic_count=$dynamic_count -Ddynamic_1_count=$dynamic_1_count -Ddynamic_2_tests=$dynamic_2_count                  # optional
         #sourceLocation:       <string>      # optional
         #resolverSnapshotRepo: <string>      # optional
         #resolverReleaseRepo:  <string>      # optional

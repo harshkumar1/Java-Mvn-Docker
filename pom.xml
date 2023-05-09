@@ -64,16 +64,16 @@
               <testFailureIgnore>true</testFailureIgnore>
               <systemProperties>
                 <property>
-                  <name>dynamic_tests_count</name>
-                  <value>${dynamic_tests_count}</value>
+                  <name>dynamic_count</name>
+                  <value>${dynamic_count}</value>
                 </property>
                 <property>
-                  <name>dynamic_1_tests_count</name>
-                  <value>${dynamic_1_tests_count}</value>
+                  <name>dynamic_1_count</name>
+                  <value>${dynamic_1_count}</value>
                 </property>
                 <property>
-                  <name>dynamic_2_tests_count</name>
-                  <value>${dynamic_2_tests_count}</value>
+                  <name>dynamic_2_count</name>
+                  <value>${dynamic_2_count}</value>
                 </property>
               </systemProperties>
           </configuration>
