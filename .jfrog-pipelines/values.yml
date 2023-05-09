@@ -1,10 +1,10 @@
 var:
-  pipelineName: equans_testing3
+  pipelineName: equans_testing2
   gitProvider: hk_github
   path: harshkumar1/Java-Mvn-Docker
   branches: equans_testing
   artifactory: hk_artifactory_1
   repo: demo-docker-local
   jfrogTokenIntegration: myAccessTokenIntegration
-  jpdInstance: srkaz.jfrogdev.org
+  jpdInstance: equans2.jfrogdev.org/
   imageName: demo_microservice_1
