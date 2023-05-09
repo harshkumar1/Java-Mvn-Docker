@@ -41,7 +41,7 @@ pipelines:
     - name: mvn_build
       type: MvnBuild
       configuration:
-        affinityGroup: java_mvn_docker
+        #affinityGroup: java_mvn_docker
         integrations:
           - name: {{ .Values.var.artifactory }} 
         inputResources:
@@ -72,7 +72,7 @@ pipelines:
     - name: mvn_test
       type: MvnBuild
       configuration: ##save test
-        affinityGroup: java_mvn_docker
+        #affinityGroup: java_mvn_docker
         integrations:
           - name: {{ .Values.var.artifactory }} 
       ##set run name
