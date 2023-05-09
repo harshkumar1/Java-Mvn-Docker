@@ -62,6 +62,12 @@
               <trimStackTrace>false</trimStackTrace>
               <useFile>false</useFile>
               <testFailureIgnore>true</testFailureIgnore>
+              <systemProperties>
+                <property>
+                  <name>tests</name>
+                  <value>${tests}</value>
+                </property>
+              </systemProperties>
           </configuration>
         </plugin>
         <plugin>

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.TestFactory;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DynamicTest;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.function.Function;
 import org.junit.jupiter.api.function.ThrowingConsumer;
 import org.junit.jupiter.api.Assertions;
@@ -17,14 +16,11 @@ public class Junit5_Dynamic_2_Tests {
       // Generates random positive integers between 0 and 100 until
       // a number evenly divisible by 7 is encountered.
       Iterator<Integer> inputGenerator = new Iterator<Integer>() {
-
-          Random random = new Random();
           int current = 0;
-
           @Override
           public boolean hasNext() {
               current = current+1;
-              return current % 1000 != 0;
+              return current % 1 != 0;
           }
 
           @Override

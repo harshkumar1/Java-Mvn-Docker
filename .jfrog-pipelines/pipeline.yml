@@ -37,6 +37,20 @@ pipelines:
   - name: {{ .Values.var.pipelineName }}
     configuration:
       jfrogCliVersion: '2'                 # optional
+      environmentVariables:
+        readOnly:
+          Dynamic_Tests: 
+            default: 10
+            description: Tests to be run in test suite ': Dynamic_Tests' 
+            allowCustom: true
+          Dynamic_1_Tests: 
+            default: 10
+            description: Tests to be run in test suite ': Dynamic_1_Tests' 
+            allowCustom: true
+          Dynamic_2_Tests: 
+            default: 10
+            description: Tests to be run in test suite ': Dynamic_2_Tests' 
+            allowCustom: true
     steps:
     - name: mvn_build
       type: MvnBuild
