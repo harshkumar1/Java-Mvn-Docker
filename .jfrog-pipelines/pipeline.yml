@@ -41,15 +41,15 @@ pipelines:
         readOnly:
           dynamic_count: 
             default: 10
-            description: Tests are randomly generated propotional to this count for test suite - Dynamic_Tests \n Approx Nos'\:' \n 10 - 18 Tests - 170KB \n 100 - 98 Tests - 1.7MB \n 1000 - 998 Tests - 17MB \n 10,000 - 19,998 Tests - 170MB \n 100,000 - 199,998 Tests - 1.7GB 
+            description: "Tests are randomly generated propotional to this count for test suite - Dynamic_Tests \n Approx Nos'\:' \n 10 - 18 Tests - 170KB \n 100 - 98 Tests - 1.7MB \n 1000 - 998 Tests - 17MB \n 10,000 - 19,998 Tests - 170MB \n 100,000 - 199,998 Tests - 1.7GB"
             allowCustom: true
           dynamic_1_count: 
             default: 10
-            description: Tests are randomly generated propotional to this count for test suite - Dynamic_1_Tests \n Approx Nos'\:' \n 10 - 18 Tests - 170KB \n 100 - 98 Tests - 1.7MB \n 1000 - 998 Tests - 17MB \n 10,000 - 19,998 Tests - 170MB \n 100,000 - 199,998 Tests - 1.7GB 
+            description: "Tests are randomly generated propotional to this count for test suite - Dynamic_1_Tests \n Approx Nos'\:' \n 10 - 18 Tests - 170KB \n 100 - 98 Tests - 1.7MB \n 1000 - 998 Tests - 17MB \n 10,000 - 19,998 Tests - 170MB \n 100,000 - 199,998 Tests - 1.7GB"
             allowCustom: true
           dynamic_2_count: 
             default: 10
-            description: Tests are randomly generated propotional to this count for test suite - Dynamic_2_Tests \n Approx Nos'\:' \n 10 - 18 Tests - 170KB \n 100 - 98 Tests - 1.7MB \n 1000 - 998 Tests - 17MB \n 10,000 - 19,998 Tests - 170MB \n 100,000 - 199,998 Tests - 1.7GB 
+            description: "Tests are randomly generated propotional to this count for test suite - Dynamic_2_Tests \n Approx Nos'\:' \n 10 - 18 Tests - 170KB \n 100 - 98 Tests - 1.7MB \n 1000 - 998 Tests - 17MB \n 10,000 - 19,998 Tests - 170MB \n 100,000 - 199,998 Tests - 1.7GB"
             allowCustom: true
     steps:
     - name: mvn_build
