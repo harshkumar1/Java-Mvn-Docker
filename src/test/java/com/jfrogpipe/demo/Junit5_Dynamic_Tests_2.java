@@ -9,7 +9,7 @@ import java.util.function.Function;
 import org.junit.jupiter.api.function.ThrowingConsumer;
 import org.junit.jupiter.api.Assertions;
 
-public class Junit5_Dynamic_Tests {
+public class Junit5_Dynamic_Tests_2 {
 
   @TestFactory
   Stream<DynamicTest> generateRandomNumberOfTestsFromIterator() {
