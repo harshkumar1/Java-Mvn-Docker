@@ -24,7 +24,7 @@ public class Junit5_Dynamic_Tests {
           @Override
           public boolean hasNext() {
               current = current+1;
-              return current % 10000 != 0;
+              return current % 10 != 0;
           }
 
           @Override
