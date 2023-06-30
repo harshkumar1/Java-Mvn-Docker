@@ -76,6 +76,7 @@ pipelines:
       execution:
         onStart:
           - echo "Preparing for work..."
+          - java -version
         onSuccess:
           - echo "Job well done!"
         onFailure:
