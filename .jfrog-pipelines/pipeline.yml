@@ -68,6 +68,9 @@ pipelines:
           - echo "uh oh, something went wrong"
         onComplete: #always
           - echo "Cleaning up some stuff"
+          - task: jfrog/setup-node@v0.1.0  
+            input:
+              version: "18.0.0" 
           - task: jfrog/upload-file-to-s3@v0.1.0
             input:
               sourceFilePath: "${res_jfrog_pipeline_repo_resourcePath}/target/pipe-demo-1.0-SNAPSHOT.jar"
