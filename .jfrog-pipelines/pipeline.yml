@@ -68,6 +68,11 @@ pipelines:
           - echo "uh oh, something went wrong"
         onComplete: #always
           - echo "Cleaning up some stuff"
+          - task: jfrog/upload-file-to-s3@v0.1.0
+              input:
+                sourceFilePath: "${res_jfrog_pipeline_repo_resourcePath}/taret/pipe-demo-*.jar"
+                targetBucketName: "harsh-s3-bucket-1"
+                awsIntegration: "hk_awsIntegration"
 
     - name: mvn_test
       type: MvnBuild
