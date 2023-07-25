@@ -45,7 +45,7 @@ pipelines:
         integrations:
           - name: {{ .Values.var.artifactory }}
           - name: {{ .Values.var.awsIntegration }}
-          - name: {{ .Values.var.jfrogTokenIntegration }}
+          #- name: {{ .Values.var.jfrogTokenIntegration }}
         inputResources:
           - name: src_repo
         mvnCommand: clean install -DskipTests           # optional
@@ -66,9 +66,9 @@ pipelines:
           - echo "Preparing for work..."
         onSuccess:
           - echo "Uploading JAR to Artifactory!"
-          - jf config add --url ${int_{{ .Values.var.jfrogTokenIntegration }}_url} --access-token ${int_{{ .Values.var.jfrogTokenIntegration }}_accessToken}
+          #- jf config add --url ${int_{{ .Values.var.jfrogTokenIntegration }}_url} --access-token ${int_{{ .Values.var.jfrogTokenIntegration }}_accessToken}
           #- jf rt u --flat=true ${res_src_repo_resourcePath}/pipe-demo-1.0-SNAPSHOT.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
-          - jf rt u --flat=true ${res_src_repo_resourcePath}/*.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
+          - jf rt u --flat=true ${res_src_repo_resourcePath}/pipe-demo-1.0-SNAPSHOT.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
           #- echo "Uploading JAR to S3!"
           #- task: jfrog/setup-node@v0.1.0  
           #  input:
