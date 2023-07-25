@@ -5,6 +5,7 @@ var:
   branches: main
   artifactory: hk_artifactory_1
   repo: demo-docker-local
+  mvn_repo: demo-mvn-local
   jfrogTokenIntegration: myAccessTokenIntegration
   jpdInstance: pipelines.jfrog.io
   imageName: demo_microservice_1
