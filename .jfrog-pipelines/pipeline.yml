@@ -67,7 +67,7 @@ pipelines:
         onSuccess:
           - echo "Uploading JAR to Artifactory!"
           - jf config add --url ${int_{{ .Values.var.jfrogTokenIntegration }}_url} --access-token ${int_{{ .Values.var.jfrogTokenIntegration }}_accessToken}
-          - jf rt u ${res_src_repo_resourcePath}/target/pipe-demo-1.0-SNAPSHOT.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}
+          - jf rt u ${res_src_repo_resourcePath}/target/pipe-demo-1.0-SNAPSHOT.jar {{ .Values.var.mvn_repo }}
           
           #- echo "Uploading JAR to S3!"
           #- task: jfrog/setup-node@v0.1.0  
