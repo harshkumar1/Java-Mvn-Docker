@@ -7,5 +7,6 @@ var:
   repo: demo-docker-local
   mvn_repo: demo-mvn-local
   jfrogTokenIntegration: myAccessTokenIntegration
+  awsIntegration: hk_awsIntegration_all
   jpdInstance: pipelines.jfrog.io
   imageName: demo_microservice_1

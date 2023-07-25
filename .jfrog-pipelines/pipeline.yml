@@ -44,7 +44,8 @@ pipelines:
         affinityGroup: java_mvn_docker
         integrations:
           - name: {{ .Values.var.artifactory }}
-          - name: hk_awsIntegration_all
+          - name: {{ .Values.var.awsIntegration }}
+          - name: {{ .Values.var.jfrogTokenIntegration }}
         inputResources:
           - name: src_repo
         mvnCommand: clean install -DskipTests           # optional
