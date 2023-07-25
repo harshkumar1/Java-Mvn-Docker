@@ -45,20 +45,9 @@ pipelines:
         integrations:
           - name: {{ .Values.var.artifactory }}
           - name: {{ .Values.var.awsIntegration }}
-          #- name: {{ .Values.var.jfrogTokenIntegration }}
         inputResources:
           - name: src_repo
         mvnCommand: clean install -DskipTests           # optional
-        #sourceLocation:       <string>      # optional
-        #resolverSnapshotRepo: <string>      # optional
-        #resolverReleaseRepo:  <string>      # optional
-        #deployerSnapshotRepo: <string>      # optional
-        #deployerReleaseRepo:  <string>      # optional
-        #forceXrayScan:        <boolean>     # optional
-        #failOnScan:           <boolean>     # default true
-        #autoPublishBuildInfo: <string>      # optional
-        #configFileLocation:   <string>      # optional
-        #configFileName:       <string>      # optional
         outputResources:
           - name: mvn_install_info
       execution:
@@ -66,9 +55,7 @@ pipelines:
           - echo "Preparing for work..."
         onSuccess:
           - echo "Uploading JAR to Artifactory!"
-          #- jf config add --url ${int_{{ .Values.var.jfrogTokenIntegration }}_url} --access-token ${int_{{ .Values.var.jfrogTokenIntegration }}_accessToken}
-          #- jf rt u --flat=true ${res_src_repo_resourcePath}/pipe-demo-1.0-SNAPSHOT.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
-          - jf rt u --flat=true ${res_src_repo_resourcePath}/target/pipe-demo-1.0-SNAPSHOT.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
+          - jf rt u --flat=true ${res_src_repo_resourcePath}/target/*.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
           #- echo "Uploading JAR to S3!"
           #- task: jfrog/setup-node@v0.1.0  
           #  input:
@@ -79,9 +66,9 @@ pipelines:
           #    targetBucketName: "harsh-s3-bucket-1"
           #    awsIntegration: "hk_awsIntegration_all"
         onFailure:
-          - echo "uh oh, something went wrong"
+          - echo "actions when step has failed"
         onComplete: #always
-          - echo "Cleaning up some stuff"
+          - echo "actions to run always - fail or pass"
 
     - name: mvn_test
       type: MvnBuild
@@ -96,16 +83,6 @@ pipelines:
           - name: src_repo
           - name: mvn_install_info
         mvnCommand: test                     # optional
-        #sourceLocation:       <string>      # optional
-        #resolverSnapshotRepo: <string>      # optional
-        #resolverReleaseRepo:  <string>      # optional
-        #deployerSnapshotRepo: <string>      # optional
-        #deployerReleaseRepo:  <string>      # optional
-        #forceXrayScan:        <string>      # optional
-        #failOnScan:           <boolean>     # default true
-        #autoPublishBuildInfo: <string>      # optional
-        #configFileLocation:   <string>      # optional
-        #configFileName:       <string>      # optional
         outputResources:
           - name: mvn_test_info
       execution:
@@ -119,19 +96,7 @@ pipelines:
           - echo "Cleaning up some stuff"
           - ls -lh $res_src_repo_resourcePath/target/surefire-reports/
           - save_tests $res_src_repo_resourcePath/target/surefire-reports/
-    #- name: uploadArtifactStep
-    #  type: UploadArtifact
-    #  configuration:
-    #    targetPath: my-repository/myDirectory/myFile.txt
-    #    autoPublishBuildInfo: false
-    #    forceXrayScan: false
-    #    integrations:
-    #      - name: {{ .Values.var.artifactory }} 
-    #    inputResources:
-    #      - name: mvn_install_info
-    #    outputResources:
-    #      - name: myBuildInfo
-    
+
     - name: docker_build
       type: DockerBuild
       configuration:
