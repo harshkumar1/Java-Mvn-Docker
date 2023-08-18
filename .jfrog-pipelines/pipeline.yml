@@ -88,6 +88,7 @@ pipelines:
       execution:
         onStart:
           - echo "Preparing for work..."
+          - python3 --version
         onSuccess:
           - echo "Job well done!"
         onFailure:
