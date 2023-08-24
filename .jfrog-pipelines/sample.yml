@@ -1,25 +1,25 @@
-resources:
-  - name: git_repo
-    type: GitRepo
-    configuration:
-      gitProvider: Github
-      path: my-repo
-      branches:
-        include: main
-pipelines:
-  - name: build_and_upload
-    steps:
-      - name: build
-        type: Bash
-        configuration:
-          integrations:
-            - name: artifactory
-            - name: aws_integration_demo
-          inputResources:
-            - name: git_repo
-        execution:
-          onExecute:
-            - mvn clean build
-            - jfrog config use artifactory
-            - jf rt u --flat=true ${res_src_repo_resourcePath}/target/*.jar repo-name/
-            - save_tests $res_src_repo_resourcePath/target/surefire-reports/
+# resources:
+#   - name: git_repo
+#     type: GitRepo
+#     configuration:
+#       gitProvider: hk_github
+#       path: my-repo
+#       branches:
+#         include: main
+# pipelines:
+#   - name: build_and_upload
+#     steps:
+#       - name: build
+#         type: Bash
+#         configuration:
+#           integrations:
+#             - name: artifactory
+#             - name: aws_integration_demo
+#           inputResources:
+#             - name: git_repo
+#         execution:
+#           onExecute:
+#             - mvn clean build
+#             - jfrog config use artifactory
+#             - jf rt u --flat=true ${res_src_repo_resourcePath}/target/*.jar repo-name/
+#             - save_tests $res_src_repo_resourcePath/target/surefire-reports/
