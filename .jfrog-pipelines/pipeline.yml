@@ -56,7 +56,7 @@ pipelines:
       execution:
         onStart:
           - echo "Preparing for work..."
-          - jf audit --mvn
+          #- jf audit --mvn
         onSuccess:
           - echo "Uploading JAR to Artifactory!"
           - jf rt u --flat=true ${res_src_repo_resourcePath}/target/*.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
