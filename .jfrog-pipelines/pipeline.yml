@@ -50,8 +50,8 @@ pipelines:
         mvnCommand: clean install -DskipTests           # optional
         outputResources:
           - name: mvn_install_info
-        forceXrayScan: false
-        failOnScan: false
+        forceXrayScan: true
+        failOnScan: true
         autoPublishBuildInfo: true
       execution:
         onStart:
