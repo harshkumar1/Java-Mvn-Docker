@@ -50,8 +50,8 @@ pipelines:
         mvnCommand: clean install -DskipTests           # optional
         outputResources:
           - name: mvn_install_info
-        forceXrayScan: true
-        failOnScan: true
+        forceXrayScan: false
+        failOnScan: false
         autoPublishBuildInfo: true
       execution:
         onStart:
@@ -60,6 +60,7 @@ pipelines:
         onSuccess:
           - echo "Uploading JAR to Artifactory!"
           - jf rt u --flat=true ${res_src_repo_resourcePath}/target/*.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
+          - jf build-scan --fail=true {{ .Values.var.pipelineName }} ${run_number}
           #- echo "Uploading JAR to S3!"
           #- task: jfrog/setup-node@v0.1.0  
           #  input:
@@ -138,8 +139,8 @@ pipelines:
           - name: {{ .Values.var.artifactory }} 
         affinityGroup: java_mvn_docker
         targetRepository: {{ .Values.var.repo }}        #  may be required. Must be a local repository. Virtual repositories are not supported.
-        forceXrayScan: true                            # default false
-        failOnScan: true                               # default true
+        forceXrayScan: false                            # default false
+        failOnScan: false                               # default true
         autoPublishBuildInfo: true                      # default false
         outputResources:
           - name: docker_publish_info
