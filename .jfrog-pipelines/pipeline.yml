@@ -12,25 +12,25 @@ resources:
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
-      buildName: {{ .Values.var.pipelineName }}_mvn_install_info
+      buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
   - name: mvn_test_info
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
-      buildName: {{ .Values.var.pipelineName }}_mvn_test_info
+      buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
   - name: docker_build_info
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
-      buildName: {{ .Values.var.pipelineName }}_docker_build_info
+      buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
   - name: docker_publish_info
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
-      buildName: {{ .Values.var.pipelineName }}_docker_publish_info
+      buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
 
 pipelines:
