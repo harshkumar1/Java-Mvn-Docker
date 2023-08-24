@@ -12,25 +12,25 @@ resources:
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
-      buildName: {{ .Values.var.pipelineName }}
+      buildName: {{ .Values.var.pipelineName }}_mvn_install_info
       buildNumber: ${run_number}
   - name: mvn_test_info
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
-      buildName: {{ .Values.var.pipelineName }}
+      buildName: {{ .Values.var.pipelineName }}_mvn_test_info
       buildNumber: ${run_number}
   - name: docker_build_info
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
-      buildName: {{ .Values.var.pipelineName }}
+      buildName: {{ .Values.var.pipelineName }}_docker_build_info
       buildNumber: ${run_number}
   - name: docker_publish_info
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
-      buildName: {{ .Values.var.pipelineName }}
+      buildName: {{ .Values.var.pipelineName }}_docker_publish_info
       buildNumber: ${run_number}
 
 pipelines:
@@ -50,6 +50,9 @@ pipelines:
         mvnCommand: clean install -DskipTests           # optional
         outputResources:
           - name: mvn_install_info
+        forceXrayScan: true
+        failOnScan: true
+        autoPublishBuildInfo: true
       execution:
         onStart:
           - echo "Preparing for work..."
@@ -135,8 +138,8 @@ pipelines:
           - name: {{ .Values.var.artifactory }} 
         affinityGroup: java_mvn_docker
         targetRepository: {{ .Values.var.repo }}        #  may be required. Must be a local repository. Virtual repositories are not supported.
-        forceXrayScan: false                            # default false
-        failOnScan: false                               # default true
+        forceXrayScan: true                            # default false
+        failOnScan: true                               # default true
         autoPublishBuildInfo: true                      # default false
         outputResources:
           - name: docker_publish_info
