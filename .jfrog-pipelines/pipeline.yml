@@ -1,32 +1,32 @@
 valuesFilePath: ./values.yml
 
 resources:
-  - name: src_repo
+  - name: src_repo_SampleTest
     type: GitRepo
     configuration:
       gitProvider: {{ .Values.var.gitProvider }}
       path: {{ .Values.var.path }}
       branches:
         include: {{ .Values.var.branches }}
-  - name: mvn_install_info
+  - name: mvn_install_info_SampleTest
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
       buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
-  - name: mvn_test_info
+  - name: mvn_test_info_SampleTest
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
       buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
-  - name: docker_build_info
+  - name: docker_build_info_SampleTest
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
       buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
-  - name: docker_publish_info
+  - name: docker_publish_info_SampleTest
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.var.artifactory }}
@@ -46,10 +46,10 @@ pipelines:
           - name: {{ .Values.var.artifactory }}
           - name: {{ .Values.var.awsIntegration }}
         inputResources:
-          - name: src_repo
+          - name: src_repo_SampleTest
         mvnCommand: clean install -DskipTests           # optional
         outputResources:
-          - name: mvn_install_info
+          - name: mvn_install_info_SampleTest
         forceXrayScan: false
         failOnScan: false
         autoPublishBuildInfo: true
@@ -85,11 +85,11 @@ pipelines:
       ##set run description
       ##task -- slack integration
         inputResources:
-          - name: src_repo
-          - name: mvn_install_info
+          - name: src_repo_SampleTest
+          - name: mvn_install_info_SampleTest
         mvnCommand: test                     # optional
         outputResources:
-          - name: mvn_test_info
+          - name: mvn_test_info_SampleTest
       execution:
         onStart:
           - echo "Preparing for work..."
@@ -102,56 +102,3 @@ pipelines:
           - echo "Cleaning up some stuff"
           - ls -lh $res_src_repo_resourcePath/target/surefire-reports/
           - save_tests $res_src_repo_resourcePath/target/surefire-reports/
-
-    - name: docker_build
-      type: DockerBuild
-      configuration:
-        inputResources:
-          - name: src_repo
-          - name: mvn_test_info
-        affinityGroup: java_mvn_docker
-        integrations:
-          - name: {{ .Values.var.artifactory }} 
-        dockerFileLocation: .
-        dockerFileName: Dockerfile
-        dockerImageName: {{ .Values.var.jpdInstance }}/{{ .Values.var.repo }}/{{ .Values.var.imageName }}   # replace with your image path and name
-        dockerImageTag: ${run_number}
-        outputResources:
-          - name: docker_build_info
-      execution:
-        onStart:
-          - echo "Preparing for work..."
-        onSuccess:
-          - echo "Job well done!"
-        onFailure:
-          - echo "uh oh, something went wrong"
-        onComplete: #always
-          - echo "Cleaning up some stuff"
-          - docker images
-          
-    - name: docker_publish
-      type: DockerPush
-      configuration:
-        inputResources:
-          - name: src_repo
-          - name: docker_build_info
-        integrations:
-          - name: {{ .Values.var.artifactory }} 
-        affinityGroup: java_mvn_docker
-        targetRepository: {{ .Values.var.repo }}        #  may be required. Must be a local repository. Virtual repositories are not supported.
-        forceXrayScan: false                            # default false
-        failOnScan: false                               # default true
-        autoPublishBuildInfo: true                      # default false
-        outputResources:
-          - name: docker_publish_info
-      execution:
-        onStart:
-          - echo "Preparing for work..."
-          - docker images
-          - set_run_name "V${run_number}.0.0"
-        onSuccess:
-          - echo "Job well done!"
-        onFailure:
-          - echo "uh oh, something went wrong"
-        onComplete: #always
-          - echo "Cleaning up some stuff"
