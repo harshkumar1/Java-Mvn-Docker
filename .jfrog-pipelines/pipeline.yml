@@ -44,7 +44,6 @@ pipelines:
         affinityGroup: java_mvn_docker
         integrations:
           - name: {{ .Values.var.artifactory }}
-          - name: {{ .Values.var.awsIntegration }}
         inputResources:
           - name: src_repo_SampleTest
         mvnCommand: clean install -DskipTests           # optional
@@ -61,15 +60,6 @@ pipelines:
           - echo "Uploading JAR to Artifactory!"
           - jf rt u --flat=true ${res_src_repo_resourcePath}/target/*.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
           - jf build-scan --fail=true {{ .Values.var.pipelineName }} ${run_number}
-          #- echo "Uploading JAR to S3!"
-          #- task: jfrog/setup-node@v0.1.0  
-          #  input:
-          #    version: "18.0.0" 
-          #- task: jfrog/upload-file-to-s3@v0.1.0
-          #  input:
-          #    sourceFilePath: "${res_src_repo_resourcePath}/target/pipe-demo-1.0-SNAPSHOT.jar"
-          #    targetBucketName: "harsh-s3-bucket-1"
-          #    awsIntegration: "hk_awsIntegration_all"
         onFailure:
           - echo "actions when step has failed"
         onComplete: #always
