@@ -23,7 +23,7 @@ public class DemoTest
     @Test
     public void generateMockTests() {
         for (int i = 1; i <= 1; i++) {
-            String testName = "test" + i;
+            String testName = "test1" + i;
             String expected = "expected" + i;
             String actual = "actual" + i;
             Assertions.assertEquals(expected, actual);
