@@ -1,12 +1,11 @@
 var:
-  pipelineName: demo_microservice_1
-  gitProvider: hk_github
+  pipelineName: demo_microservice_1_SampleTest
+  gitProvider: Github_Sample
   path: harshkumar1/Java-Mvn-Docker
   branches: main
   artifactory: hk_artifactory_1
   repo: demo-docker-local
   mvn_repo: demo-mvn-local
   jfrogTokenIntegration: myAccessTokenIntegration
-  awsIntegration: hk_awsIntegration_all
   jpdInstance: pipelines.jfrog.io
-  imageName: demo_microservice_1
+  imageName: demo_microservice_1_SampleTest
