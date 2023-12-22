@@ -15,8 +15,8 @@ pipelines:
       - name: build
         type: Bash
         configuration:
-          integrations:
-            - name: artifactory
+          # integrations:
+          #   - name: artifactory
           inputResources:
             - name: src_repo_1_java_mvn_docker_repo
         execution:
