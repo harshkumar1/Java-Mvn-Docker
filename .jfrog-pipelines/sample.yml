@@ -1,3 +1,5 @@
+valuesFilePath: ./values.yml
+
 resources:
   - name: src_repo_1_java_mvn_docker_repo
     type: GitRepo
