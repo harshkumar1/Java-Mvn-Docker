@@ -17,6 +17,7 @@ pipelines:
         configuration:
           # integrations:
           #   - name: artifactory
+          nodePool: ubuntu20_arm  
           inputResources:
             - name: src_repo_1_java_mvn_docker_repo
         execution:
@@ -28,4 +29,4 @@ pipelines:
             - cd $res_src_repo_1_java_mvn_docker_repo_resourcePath
             - ls
             - docker buildx ls
-            - docker buildx build . --attest type=provenance,mode=max
+            - docker buildx build --tag {{ .Values.var.jpdInstance }}/{{ .Values.var.repo }}/{{ .Values.var.imageName }}:${run_number}_attest --attest type=provenance,mode=min .
