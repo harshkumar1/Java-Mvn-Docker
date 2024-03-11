@@ -35,8 +35,8 @@ resources:
 
 pipelines:
   - name: {{ .Values.var.pipelineName }}
-    configuration:
-      jfrogCliVersion: '2'                 # optional
+    #configuration:
+    #  jfrogCliVersion: '2'                 # optional
     steps:
     - name: mvn_build
       type: MvnBuild
@@ -63,8 +63,9 @@ pipelines:
           #- jf audit --mvn
         onSuccess:
           - echo "Uploading JAR to Artifactory!"
-          - jf rt u --flat=true ${res_src_repo_resourcePath}/target/*.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
-          - jf build-scan --fail=true {{ .Values.var.pipelineName }} ${run_number}
+          #- jf rt u --flat=true ${res_src_repo_resourcePath}/target/*.jar {{ .Values.var.mvn_repo }}/{{ .Values.var.pipelineName }}/
+          #- jf build-scan --fail=true {{ .Values.var.pipelineName }} ${run_number}
+          
           #- echo "Uploading JAR to S3!"
           #- task: jfrog/setup-node@v0.1.0  
           #  input:
