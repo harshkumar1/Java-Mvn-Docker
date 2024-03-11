@@ -17,7 +17,7 @@ pipelines:
         configuration:
           # integrations:
           #   - name: artifactory
-          nodePool: ubuntu20_arm
+          #nodePool: ubuntu20_arm
           inputResources:
             - name: src_repo_1_java_mvn_docker_repo
         execution:
