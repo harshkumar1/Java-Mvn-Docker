@@ -42,6 +42,8 @@ pipelines:
       type: MvnBuild
       configuration:
         affinityGroup: java_mvn_docker
+        deployerSnapshotRepo: {{ .Values.var.mvn_repo }}
+        deployerReleaseRepo: {{ .Values.var.mvn_repo }}
         integrations:
           - name: {{ .Values.var.artifactory }}
           - name: {{ .Values.var.awsIntegration }}
