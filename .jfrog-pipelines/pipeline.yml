@@ -59,6 +59,9 @@ pipelines:
         onStart:
           - echo "Preparing for work..."
           - mvn -version
+          - task: jfrog/setup-jfrog-cli@v0.1.0
+            input:
+              version: "2.35"   
           - jf --version
           #- jf audit --mvn
         onSuccess:
