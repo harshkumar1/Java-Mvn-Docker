@@ -58,8 +58,7 @@ pipelines:
       execution:
         onStart:
           - echo "Preparing for work..."
-          - curl -fL https://install-cli.jfrog.io | sh
-
+          - mvn -version
           - jf --version
           #- jf audit --mvn
         onSuccess:
