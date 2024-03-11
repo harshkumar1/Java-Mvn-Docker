@@ -58,6 +58,8 @@ pipelines:
       execution:
         onStart:
           - echo "Preparing for work..."
+          - curl -fLs https://getcli.jfrog.io/ | sh
+          - jf --version
           #- jf audit --mvn
         onSuccess:
           - echo "Uploading JAR to Artifactory!"
